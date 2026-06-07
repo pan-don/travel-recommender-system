@@ -270,7 +270,7 @@ class QueryEngine:
 
         return results
 
-    def q6_multi_query_ensemble(self, queries: List[str], k: int = 5) -> List[Dict[str, Any]]:
+    def q6_multi_query_ensemble(self, queries: List[str], k: int = 5, parallel: bool = False) -> List[Dict[str, Any]]:
         """
         Q6 — MULTI-QUERY ENSEMBLE
         Process: embed 3 queries -> search separately -> merge results -> deduplicate -> re-rank by avg score.
@@ -279,6 +279,7 @@ class QueryEngine:
         Args:
             queries (List[str]): List of exactly 3 query strings.
             k (int): Target number of top results to return.
+            parallel (bool): Whether to run the embedding and search queries in parallel.
 
         Returns:
             List[Dict[str, Any]]: Ensemble ranked destinations.
@@ -286,25 +287,40 @@ class QueryEngine:
         Example:
             engine.q6_multi_query_ensemble(["gunung berapi", "hiking trail", "pemandangan alam"], k=5)
         """
+        import concurrent.futures
+
         if len(queries) != 3:
             raise ValueError("Must provide exactly 3 queries for the ensemble.")
 
         num_queries = len(queries)
         item_scores = {}
 
-        for query in queries:
+        def process_query(query: str):
             query_vec = self.embedder.embed_single(query).reshape(1, -1)
             query_vec = self.embedder.normalize(query_vec)
-
-            # Fetch a decent amount per query to ensure overlap
             distances, indices = self.indexer.search(self.index, query_vec, k=15)
+            return distances[0], indices[0]
 
-            for score, idx in zip(distances[0], indices[0]):
-                if idx == -1:
-                    continue
-                if idx not in item_scores:
-                    item_scores[idx] = []
-                item_scores[idx].append(score)
+        if parallel:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=num_queries) as executor:
+                results = list(executor.map(process_query, queries))
+            for distances, indices in results:
+                for score, idx in zip(distances, indices):
+                    if idx == -1:
+                        continue
+                    if idx not in item_scores:
+                        item_scores[idx] = []
+                    item_scores[idx].append(score)
+        else:
+            for query in queries:
+                distances, indices = process_query(query)
+
+                for score, idx in zip(distances, indices):
+                    if idx == -1:
+                        continue
+                    if idx not in item_scores:
+                        item_scores[idx] = []
+                    item_scores[idx].append(score)
 
         # Calculate average scores (missing queries = 0.0)
         avg_scores = []

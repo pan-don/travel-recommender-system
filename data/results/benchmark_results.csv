@@ -1,0 +1,8 @@
+query_type,optimization,before_ms,after_ms,improvement_%,metric_name,metric_val
+Q1 Semantic Search,Text Preprocessing,29.2,23.23,20.44,Precision@5 (Overlap),1.0
+Q2 Category Filter,Per-Category Sub-Indexes,23.13,19.31,16.5,Precision@5 (Overlap),1.0
+Q3 City Filter,Tighter K Expansion (top-15),22.41,22.61,-0.88,Precision@5 (Overlap),1.0
+Q4 Broad Search,City-partitioned Index,25.77,20.19,21.67,Precision@5 (Overlap),1.0
+Q5 Item-Based,RAM Caching (Simulated),0.37,2.27,-514.23,Precision@5 (Overlap),1.0
+Q6 Multi-Query,Parallel Execution,61.25,110.61,-80.59,Precision@5 (Overlap),1.0
+Q7 PCA Reduced,Optimal PCA (128 dims),23.01,112.32,-388.2,Precision@5 (Overlap),1.0
