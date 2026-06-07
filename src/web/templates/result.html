@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelLens</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-5xl flex flex-col items-center">
+        <h1 class="text-4xl font-bold mb-6 text-center">Rekomendasi Kami</h1>
+        <!-- Memeriksa apakah ada hasil yang ditemukan -->
+        {% if results %}
+            <script>
+                const results = JSON.parse('{{ results | tojson | safe }}');
+                console.log('Debugging results:', results);
+            </script>
+            <div class="flex flex-row flex-wrap justify-center gap-6 w-full">
+            <!-- Melakukan iterasi pada setiap hasil yang ditemukan -->
+            {% for result in results %}
+                <div class="bg-gray-50 rounded-lg shadow-md p-4 flex flex-col items-center w-64">
+                    <img src="{{ result['Link_Image'] }}" alt="Image of {{ result['Place_Name'] }}" class="w-full h-40 object-cover rounded mb-4">
+                    <div class="text-lg font-semibold text-center mb-1">{{ result['Place_Name'] }}</div>
+                    <div class="text-gray-600 text-center">{{ result['City'] }}</div>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-gray-500">Maaf Kami tidak bisa menemukan tempat yang Anda maksud.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
