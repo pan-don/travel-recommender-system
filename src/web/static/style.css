@@ -1,0 +1,368 @@
+/*
+    ================================
+    BAGIAN NAVIGASI UTAMA
+    ================================
+    Navigasi utama yang menampilkan logo di kiri dan menu navigasi di kanan.
+    Menu memiliki latar belakang transparan dan efek blur untuk tampilan modern.
+    
+    Komponen:
+    ----------
+    .navbar        : Container utama navbar.
+    .navbar ul     : Daftar menu dengan background semi-transparan dan blur.
+    .nav-link      : Tautan dalam menu navbar dengan efek underline saat hover.
+*/
+.navbar {
+    background: transparent;
+    box-shadow: none;
+}
+.navbar ul {
+    background: rgba(30, 41, 59, 0.35); /* Warna biru gelap transparan */
+    color: #fff;
+    border-radius: 9999px; /* Membulat penuh */
+    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+    backdrop-filter: blur(8px); /* Efek blur latar belakang */
+}
+.nav-link {
+    position: relative;
+    padding-bottom: 2px;
+    color: #fff;
+    transition: color 0.3s;
+}
+.nav-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.nav-link:hover {
+    color: #bfdbfe; /* Warna hover */
+}
+.nav-link:hover::after {
+    width: 100%;
+    background: #bfdbfe;
+}
+
+/*
+    ================================
+    PENGATURAN UMUM HALAMAN
+    ================================
+    Pengaturan dasar untuk font, ukuran teks, margin, padding, dan warna latar belakang.
+
+    Komponen:
+    ----------
+    *      : Font default dan line-height seluruh elemen.
+    html   : Reset margin dan padding, serta warna dasar latar.
+    body   : Warna latar utama, font, dan warna teks default halaman.
+*/
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 20px;
+    font-size: 15px;
+}
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #dedede;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+}
+
+/*
+    ================================
+    LAYOUT KONTEN UTAMA
+    ================================
+    Mengatur lebar konten agar tetap proporsional di tengah halaman atau penuh jika diperlukan.
+
+    Komponen:
+    ----------
+    .layar-dalam  : Container dengan lebar tetap 1000px, digunakan untuk isi utama.
+    .layar-penuh  : Container full width untuk elemen yang membutuhkan lebar 100%.
+*/
+.layar-dalam {
+    width: 1000px;
+    margin: auto;
+}
+.layar-penuh {
+    width: 100%;
+}
+
+/*
+    ================================
+    NAVIGASI FIXED DAN RESPONSIF
+    ================================
+    Navigasi yang tetap di atas saat scroll, dengan versi putih dan logo kiri + menu kanan.
+
+    Komponen:
+    ----------
+    nav             : Navigasi fix-top, dengan warna latar putih dan shadow.
+    nav.putih       : Variasi warna navigasi putih.
+    nav .logo       : Logo di sisi kiri navigasi.
+    nav .menu       : Menu tautan di sisi kanan.
+    nav ul li a     : Link menu dengan efek hover underline.
+*/
+nav {
+    z-index: 100;
+    color: #fff;
+    text-align: center;
+    position: fixed;
+    border-bottom: 1px solid #b1b1b1;
+    line-height: 60px;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+nav.putih {
+    background-color: #fff;  
+}
+nav .logo {
+    float: left;
+    position: relative;
+    line-height: 55px;
+    text-align: center;
+}
+nav .logo img {
+    vertical-align: middle;
+    width: 120px;
+}
+nav .menu {
+    float: right;
+    height: 60px;
+    max-width: 600px;
+}
+nav .menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav .menu ul li {
+    list-style-type: none;
+    float: left;
+    line-height: 60px;
+}
+nav ul li a {
+    color: #fff;
+    text-align: center;
+    padding: 0px 16px;
+    text-decoration: none;
+}
+nav a {
+    color: #1f2937;
+    text-decoration: none;
+    font-weight: 500;
+}
+nav ul li a:hover {
+    text-decoration: underline;
+}
+nav a:hover {
+    color: #2563eb;
+}
+
+/*
+    ================================
+    HEADER / HERO SECTION
+    ================================
+    Bagian atas halaman dengan gambar latar penuh dan teks sambutan di tengah layar.
+
+    Komponen:
+    ----------
+    header              : Container tinggi satu layar penuh dengan gambar latar.
+    header .intro       : Teks sambutan pengguna (centered vertically).
+    .background-slider  : Slideshow background (jika ada).
+    .hero-image-slide   : Gambar yang mengisi latar header sepenuhnya.
+*/
+header {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 100vh;
+}
+header .intro {
+    z-index: 100;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    top: 50%;
+}
+header .intro h3 {
+    font-size: 50px;
+    margin: 0;
+    padding: 0;
+}
+.background-slider {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.hero-image-slide {
+    flex-shrink: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+}
+
+/*
+    ================================
+    TOMBOL & OVERLAY HEADER
+    ================================
+    Tombol call-to-action (CTA) dan overlay gelap pada header untuk meningkatkan kontras teks.
+
+    Komponen:
+    ----------
+    .tombol         : Tombol bergaya dengan warna khas dan rounded.
+    .tombol-menu    : Tombol hamburger menu untuk tampilan mobile.
+    .overlay        : Latar hitam transparan agar teks lebih terbaca di atas gambar.
+*/
+.tombol {
+    background-color: #c86b85;
+    height: 40px;
+    line-height: 42px;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    padding: 0px 20px;
+    font-size: 15px;
+    border-radius: 4px;
+}
+header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    opacity: 50%;
+    z-index: -1;
+}
+.tombol-menu {
+    position: absolute;
+    top: 1.7rem;
+    right: 1rem;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+}
+.tombol-menu .garis {
+    height: 3px;
+    background-color: #fff;
+}
+
+/*
+    ================================
+    RESPONSIF UNTUK LAYAR KECIL
+    ================================
+    Penyesuaian tampilan untuk perangkat mobile / tablet.
+
+    Komponen:
+    ----------
+    .layar-dalam      : Lebar konten diperkecil agar tidak overflow layar kecil.
+    nav .menu ul      : Menu disembunyikan, digantikan tombol hamburger.
+    .tombol-menu      : Muncul sebagai icon navigasi saat layar sempit.
+*/
+@media screen and (max-width: 991.98px) {
+    .layar-dalam {
+        width: 90%;
+    }
+    nav .menu ul {
+        display: none;
+    }
+    .tombol-menu {
+        display: flex;
+    }
+}
+
+/*
+    ================================
+    SECTION TENTANG KAMI
+    ================================
+    Informasi tentang aplikasi/website dengan teks terpusat.
+
+    Komponen:
+    ----------
+    #aboutus    : Container section tentang kami.
+    h2          : Judul utama section.
+    p           : Paragraf penjelas tentang website/aplikasi.
+*/
+#aboutus {
+    padding: 4rem 1rem;
+    text-align: center;
+}
+#aboutus h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+#aboutus p {
+    font-size: 1.125rem;
+    color: #6b7280;
+}
+
+/*
+    ================================
+    FORMULIR KONTAK
+    ================================
+    Area formulir bagi pengguna untuk mengirim pesan atau pertanyaan.
+
+    Komponen:
+    ----------
+    #contact             : Container section kontak.
+    input, textarea      : Kolom input teks dan area pesan.
+    button               : Tombol kirim formulir.
+*/
+#contact {
+    padding: 4rem 1rem;
+    background-color: #f3f4f6;
+    text-align: center;
+}
+#contact form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+#contact input,
+#contact textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+}
+#contact button {
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+#contact button:hover {
+    background-color: #1d4ed8;
+}
+
+/*
+    ================================
+    FOOTER HALAMAN
+    ================================
+    Bagian bawah halaman untuk hak cipta atau informasi penutup.
+
+    Komponen:
+    ----------
+    footer    : Container footer dengan latar gelap dan teks terang.
+*/
+footer {
+    background-color: #1f2937;
+    color: #ffffff;
+    text-align: center;
+    padding: 1.5rem 1rem;
+}

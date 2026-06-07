@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelLens</title>
+    <link rel="stylesheet" href="/static/templates/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-black shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
+            <a href="#" class="text-2xl font-bold text-blue-600">TravelLens</a>
+            <ul class="hidden md:flex space-x-6 text-lg font-medium">
+                <li><a href="#home" class="hover:text-blue-600">Home</a></li>
+                <li><a href="#aboutus" class="hover:text-blue-600">About Us</a></li>
+                <li><a href="#gallery" class="hover:text-blue-600">Gallery</a></li>
+                <li><a href="#team" class="hover:text-blue-600">Team</a></li>
+                <li><a href="#contact" class="hover:text-blue-600">Contact</a></li>
+            </ul>
+            <button class="md:hidden text-blue-600">Menu</button>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <div class="relative w-full h-screen min-h-screen flex items-center justify-center pt-8">
+        <img src="/static/images/bandung.jpg" alt="Bandung" class="absolute inset-0 w-full h-full object-cover z-0" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4">Explore Indonesia</h1>
+            <p class="text-lg md:text-2xl mb-6">Discover the beauty, culture, and adventure of Indonesia.</p>
+            <a href="#recommendation"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition">Rekomendasi
+                Wisata</a>
+        </div>
+    </div>
+    <!-- Recommendation Section -->
+    <section id="recommendation" class="min-h-screen flex items-center justify-center bg-gray-50 pt-10">
+        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-lg flex flex-col items-center">
+            <h1 class="text-4xl font-bold mb-2 text-center">TravelLens</h1>
+            <p class="text-gray-600 mb-8 text-center">Dapatkan rekomendasi destinasi wisata sesuai minat Anda.</p>
+            <form action="/result" method="post" class="w-full flex flex-col gap-6">
+                <div class="flex flex-row gap-4 w-full">
+                    <div class="flex-1">
+                        <label for="category" class="block mb-1 font-medium">Kategori</label>
+                        <select name="category" id="category"
+                            class="w-full border border-gray-300 rounded px-2 py-2" required>
+                            <option value="" disabled selected>Pilih Kategori</option>
+                            <option value="Bahari">Bahari</option>
+                            <option value="Budaya">Budaya</option>
+                            <option value="Cagar Alam">Cagar Alam</option>
+                            <option value="Pusat Perbelanjaan">Pusat Perbelanjaan</option>
+                            <option value="Taman Hiburan">Taman Hiburan</option>
+                            <option value="Tempat Ibadah">Tempat Ibadah</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <label for="city" class="block mb-1 font-medium">Kota</label>
+                        <select name="city" id="city" class="w-full border border-gray-300 rounded px-2 py-2" required>
+                            <option value="" disabled selected>Pilih Kota</option>
+                            <option value="Bandung">Bandung</option>
+                            <option value="Jakarta">Jakarta</option>
+                            <option value="Semarang">Semarang</option>
+                            <option value="Surabaya">Surabaya</option>
+                            <option value="Yogyakarta">Yogyakarta</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="description" class="block mb-1 font-medium">Deskripsi</label>
+                    <textarea name="description" id="description" rows="4" cols="50"
+                        class="w-full border border-gray-300 rounded px-3 py-2"
+                        placeholder="Contoh: Saya ingin berlibur ke pantai pasir putih."></textarea>
+                    <span class="text-xs text-gray-500">Mohon berikan deskripsi singkat mengenai preferensi atau minat
+                        perjalanan Anda.</span>
+                </div>
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">Cari
+                    Rekomendasi</button>
+            </form>
+        </div>
+    </section>
+    <!-- About Us Section -->
+    <section id="aboutus" class="py-64 bg-white">
+        <div class="max-w-6xl mx-auto px-6 text-center mb-16">
+            <h2 class="text-4xl font-bold mb-6">About Us</h2>
+            <p class="text-lg text-gray-700">We are passionate about showcasing the wonders of Indonesia, from its
+                breathtaking landscapes to its rich cultural heritage.</p>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">Contact Us</h2>
+            <p class="text-lg text-gray-700 mb-6">Have questions? Reach out to us!</p>
+            <form class="max-w-lg mx-auto">
+                <input type="text" placeholder="Your Name" class="w-full mb-4 px-4 py-2 border rounded-lg">
+                <input type="email" placeholder="Your Email" class="w-full mb-4 px-4 py-2 border rounded-lg">
+                <textarea placeholder="Your Message" class="w-full mb-4 px-4 py-2 border rounded-lg"></textarea>
+                <button type="submit"
+                    class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition">Send
+                    Message</button>
+            </form>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="max-w-6xl mx-auto text-center">
+            <p>&copy; 2025 TravelLens. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
