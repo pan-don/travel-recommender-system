@@ -52,7 +52,7 @@ class QueryEngine:
         Builds a secondary FAISS index with PCA dimensionality reduction (384 -> 64) for Q7.
         """
         self.pca = PCA(n_components=64)
-        reduced_embeddings = self.pca.fit_transform(self.embeddings)
+        reduced_embeddings = self.pca.fit_transform(self.embeddings).astype(np.float32)
 
         # Normalizing after PCA is necessary for Inner Product to represent Cosine Similarity
         reduced_embeddings = self.embedder.normalize(reduced_embeddings)
@@ -341,7 +341,7 @@ class QueryEngine:
         query_vec = self.embedder.embed_single(query).reshape(1, -1)
 
         # Transform using PCA
-        reduced_vec = self.pca.transform(query_vec)
+        reduced_vec = self.pca.transform(query_vec).astype(np.float32)
         reduced_vec = self.embedder.normalize(reduced_vec)
 
         distances, indices = self.indexer.search(self.pca_index, reduced_vec, k=k)
