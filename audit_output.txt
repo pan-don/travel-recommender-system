@@ -1,0 +1,50 @@
+==================================================
+DATASET AUDIT REPORT: data/raw/tourism_with_image_clean.csv
+==================================================
+Total row count: 437
+✓ Row count is sufficient (>= 100).
+
+--- Null/Missing Values ---
+Place_Id       0
+Place_Name     0
+Description    0
+Category       0
+City           0
+Link_Image     0
+Cleaned        0
+dtype: int64
+
+--- Description Length Analysis ---
+Average description length: 99.19 words
+Min description length: 11 words
+Max description length: 1180 words
+✓ Average length is ideal (50-200 words).
+
+--- Duplicate Check ---
+Duplicate Place_Id count: 0
+Duplicate Place_Name count: 0
+
+--- Data Distribution ---
+
+Category Distribution:
+Category
+Taman Hiburan         135
+Budaya                117
+Cagar Alam            106
+Bahari                 47
+Tempat Ibadah          17
+Pusat Perbelanjaan     15
+Name: count, dtype: int64
+
+City Distribution:
+City
+Yogyakarta    126
+Bandung       124
+Jakarta        84
+Semarang       57
+Surabaya       46
+Name: count, dtype: int64
+
+==================================================
+AUDIT COMPLETE
+==================================================
