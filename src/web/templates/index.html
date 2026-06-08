@@ -5,12 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TravelLens - Pencarian Destinasi</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preload" href="{{ url_for('static', filename='images/bandung.jpg') }}" as="image">
+    <link rel="preload" href="{{ url_for('static', filename='images/jakarta.jpg') }}" as="image">
+    <link rel="preload" href="{{ url_for('static', filename='images/semarang.jpg') }}" as="image">
+    <link rel="preload" href="{{ url_for('static', filename='images/surabaya.jpg') }}" as="image">
+    <link rel="preload" href="{{ url_for('static', filename='images/yogyakarta.jpg') }}" as="image">
 </head>
 <body>
 
     <div class="hero">
-        <h1>Temukan Destinasi Wisata Impian Anda</h1>
-        <p>Didukung oleh FAISS Vector Search & Sentence Transformers</p>
+        <div class="hero-slideshow">
+            <div class="hero-slide active" style="background-image: url('{{ url_for('static', filename='images/bandung.jpg') }}');"></div>
+            <div class="hero-slide" style="background-image: url('{{ url_for('static', filename='images/jakarta.jpg') }}');"></div>
+            <div class="hero-slide" style="background-image: url('{{ url_for('static', filename='images/semarang.jpg') }}');"></div>
+            <div class="hero-slide" style="background-image: url('{{ url_for('static', filename='images/surabaya.jpg') }}');"></div>
+            <div class="hero-slide" style="background-image: url('{{ url_for('static', filename='images/yogyakarta.jpg') }}');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Temukan Destinasi Wisata Impian Anda</h1>
+            <p>Didukung oleh FAISS Vector Search & Sentence Transformers</p>
+        </div>
     </div>
 
     <div class="container">
@@ -218,6 +233,21 @@
                 // Handled via CSS .loading .btn-text { display: none }
             }
         }
+
+        // Hero Slideshow
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            const slideCount = slides.length;
+
+            if (slideCount > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slideCount;
+                    slides[currentSlide].classList.add('active');
+                }, 5000);
+            }
+        });
     </script>
 </body>
 </html>
