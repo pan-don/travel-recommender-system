@@ -1,368 +1,705 @@
-/*
-    ================================
-    BAGIAN NAVIGASI UTAMA
-    ================================
-    Navigasi utama yang menampilkan logo di kiri dan menu navigasi di kanan.
-    Menu memiliki latar belakang transparan dan efek blur untuk tampilan modern.
-    
-    Komponen:
-    ----------
-    .navbar        : Container utama navbar.
-    .navbar ul     : Daftar menu dengan background semi-transparan dan blur.
-    .nav-link      : Tautan dalam menu navbar dengan efek underline saat hover.
-*/
-.navbar {
-    background: transparent;
-    box-shadow: none;
-}
-.navbar ul {
-    background: rgba(30, 41, 59, 0.35); /* Warna biru gelap transparan */
-    color: #fff;
-    border-radius: 9999px; /* Membulat penuh */
-    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
-    backdrop-filter: blur(8px); /* Efek blur latar belakang */
-}
-.nav-link {
-    position: relative;
-    padding-bottom: 2px;
-    color: #fff;
-    transition: color 0.3s;
-}
-.nav-link::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #fff;
-    transition: width 0.3s;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-}
-.nav-link:hover {
-    color: #bfdbfe; /* Warna hover */
-}
-.nav-link:hover::after {
-    width: 100%;
-    background: #bfdbfe;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #0d9488;
+  --primary-dark: #0f766e;
+  --accent: #4f46e5;
+  --surface: #ffffff;
+  --bg: #f8fafc;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --radius-lg: 16px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.2);
 }
 
-/*
-    ================================
-    PENGATURAN UMUM HALAMAN
-    ================================
-    Pengaturan dasar untuk font, ukuran teks, margin, padding, dan warna latar belakang.
-
-    Komponen:
-    ----------
-    *      : Font default dan line-height seluruh elemen.
-    html   : Reset margin dan padding, serta warna dasar latar.
-    body   : Warna latar utama, font, dan warna teks default halaman.
-*/
 * {
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 20px;
-    font-size: 15px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-html {
-    margin: 0;
-    padding: 0;
-    background-color: #dedede;
-}
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #f9fafb;
-    color: #1f2937;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-/*
-    ================================
-    LAYOUT KONTEN UTAMA
-    ================================
-    Mengatur lebar konten agar tetap proporsional di tengah halaman atau penuh jika diperlukan.
-
-    Komponen:
-    ----------
-    .layar-dalam  : Container dengan lebar tetap 1000px, digunakan untuk isi utama.
-    .layar-penuh  : Container full width untuk elemen yang membutuhkan lebar 100%.
-*/
-.layar-dalam {
-    width: 1000px;
-    margin: auto;
-}
-.layar-penuh {
-    width: 100%;
+/* Hero Section */
+.hero {
+  width: 100%;
+  padding: 80px 20px 140px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  text-align: center;
+  color: white;
 }
 
-/*
-    ================================
-    NAVIGASI FIXED DAN RESPONSIF
-    ================================
-    Navigasi yang tetap di atas saat scroll, dengan versi putih dan logo kiri + menu kanan.
-
-    Komponen:
-    ----------
-    nav             : Navigasi fix-top, dengan warna latar putih dan shadow.
-    nav.putih       : Variasi warna navigasi putih.
-    nav .logo       : Logo di sisi kiri navigasi.
-    nav .menu       : Menu tautan di sisi kanan.
-    nav ul li a     : Link menu dengan efek hover underline.
-*/
-nav {
-    z-index: 100;
-    color: #fff;
-    text-align: center;
-    position: fixed;
-    border-bottom: 1px solid #b1b1b1;
-    line-height: 60px;
-    width: 100%;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-nav.putih {
-    background-color: #fff;  
-}
-nav .logo {
-    float: left;
-    position: relative;
-    line-height: 55px;
-    text-align: center;
-}
-nav .logo img {
-    vertical-align: middle;
-    width: 120px;
-}
-nav .menu {
-    float: right;
-    height: 60px;
-    max-width: 600px;
-}
-nav .menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-nav .menu ul li {
-    list-style-type: none;
-    float: left;
-    line-height: 60px;
-}
-nav ul li a {
-    color: #fff;
-    text-align: center;
-    padding: 0px 16px;
-    text-decoration: none;
-}
-nav a {
-    color: #1f2937;
-    text-decoration: none;
-    font-weight: 500;
-}
-nav ul li a:hover {
-    text-decoration: underline;
-}
-nav a:hover {
-    color: #2563eb;
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
-/*
-    ================================
-    HEADER / HERO SECTION
-    ================================
-    Bagian atas halaman dengan gambar latar penuh dan teks sambutan di tengah layar.
-
-    Komponen:
-    ----------
-    header              : Container tinggi satu layar penuh dengan gambar latar.
-    header .intro       : Teks sambutan pengguna (centered vertically).
-    .background-slider  : Slideshow background (jika ada).
-    .hero-image-slide   : Gambar yang mengisi latar header sepenuhnya.
-*/
-header {
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    height: 100vh;
-}
-header .intro {
-    z-index: 100;
-    color: #fff;
-    text-align: center;
-    position: relative;
-    top: 50%;
-}
-header .intro h3 {
-    font-size: 50px;
-    margin: 0;
-    padding: 0;
-}
-.background-slider {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
-.hero-image-slide {
-    flex-shrink: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    object-position: center;
+.hero p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/*
-    ================================
-    TOMBOL & OVERLAY HEADER
-    ================================
-    Tombol call-to-action (CTA) dan overlay gelap pada header untuk meningkatkan kontras teks.
-
-    Komponen:
-    ----------
-    .tombol         : Tombol bergaya dengan warna khas dan rounded.
-    .tombol-menu    : Tombol hamburger menu untuk tampilan mobile.
-    .overlay        : Latar hitam transparan agar teks lebih terbaca di atas gambar.
-*/
-.tombol {
-    background-color: #c86b85;
-    height: 40px;
-    line-height: 42px;
-    color: #fff;
-    text-decoration: none;
-    display: inline-block;
-    padding: 0px 20px;
-    font-size: 15px;
-    border-radius: 4px;
-}
-header .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #000;
-    opacity: 50%;
-    z-index: -1;
-}
-.tombol-menu {
-    position: absolute;
-    top: 1.7rem;
-    right: 1rem;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 20px;
-}
-.tombol-menu .garis {
-    height: 3px;
-    background-color: #fff;
+/* Container */
+.container {
+  max-width: 900px;
+  margin: -100px auto 40px;
+  padding: 0 20px;
 }
 
-/*
-    ================================
-    RESPONSIF UNTUK LAYAR KECIL
-    ================================
-    Penyesuaian tampilan untuk perangkat mobile / tablet.
-
-    Komponen:
-    ----------
-    .layar-dalam      : Lebar konten diperkecil agar tidak overflow layar kecil.
-    nav .menu ul      : Menu disembunyikan, digantikan tombol hamburger.
-    .tombol-menu      : Muncul sebagai icon navigasi saat layar sempit.
-*/
-@media screen and (max-width: 991.98px) {
-    .layar-dalam {
-        width: 90%;
-    }
-    nav .menu ul {
-        display: none;
-    }
-    .tombol-menu {
-        display: flex;
-    }
+/* Glassmorphism Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 32px;
 }
 
-/*
-    ================================
-    SECTION TENTANG KAMI
-    ================================
-    Informasi tentang aplikasi/website dengan teks terpusat.
-
-    Komponen:
-    ----------
-    #aboutus    : Container section tentang kami.
-    h2          : Judul utama section.
-    p           : Paragraf penjelas tentang website/aplikasi.
-*/
-#aboutus {
-    padding: 4rem 1rem;
-    text-align: center;
-}
-#aboutus h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-#aboutus p {
-    font-size: 1.125rem;
-    color: #6b7280;
+/* Tabs */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: rgba(0,0,0,0.05);
+  padding: 6px;
+  border-radius: 50px;
 }
 
-/*
-    ================================
-    FORMULIR KONTAK
-    ================================
-    Area formulir bagi pengguna untuk mengirim pesan atau pertanyaan.
-
-    Komponen:
-    ----------
-    #contact             : Container section kontak.
-    input, textarea      : Kolom input teks dan area pesan.
-    button               : Tombol kirim formulir.
-*/
-#contact {
-    padding: 4rem 1rem;
-    background-color: #f3f4f6;
-    text-align: center;
-}
-#contact form {
-    max-width: 600px;
-    margin: 0 auto;
-}
-#contact input,
-#contact textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-}
-#contact button {
-    background-color: #2563eb;
-    color: #ffffff;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease;
-}
-#contact button:hover {
-    background-color: #1d4ed8;
+.tab-btn {
+  flex: 1;
+  text-align: center;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-/*
-    ================================
-    FOOTER HALAMAN
-    ================================
-    Bagian bawah halaman untuk hak cipta atau informasi penutup.
+.tab-btn:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--text);
+}
 
-    Komponen:
-    ----------
-    footer    : Container footer dengan latar gelap dan teks terang.
-*/
-footer {
-    background-color: #1f2937;
-    color: #ffffff;
-    text-align: center;
-    padding: 1.5rem 1rem;
+.tab-btn.active {
+  background: white;
+  color: var(--primary-dark);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+}
+
+/* Form Sections */
+.form-section {
+  display: none;
+  animation: fadeSlideIn 0.3s ease-out forwards;
+}
+
+.form-section.active {
+  display: block;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form Groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-bottom: 2px solid #cbd5e1;
+  background: rgba(255,255,255,0.5);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-bottom-color: var(--primary);
+  background: white;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* City Chips */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-muted);
+}
+
+.chip-label:hover {
+  background: #e2e8f0;
+}
+
+.chip-label input[type="checkbox"] {
+  display: none;
+}
+
+.chip-label input[type="checkbox"]:checked + span {
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.chip-label:has(input[type="checkbox"]:checked) {
+  background: #ccfbf1;
+  border-color: var(--primary);
+}
+
+/* Button */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.btn-submit:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+}
+
+/* Stats Chips */
+.stats-chips {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.stat-chip {
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Range Slider */
+.range-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.range-container input[type="range"] {
+  flex: 1;
+  accent-color: var(--primary);
+}
+
+.range-val {
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 30px;
+}
+
+/* Result Page NavBar */
+.nav-bar {
+  background: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.back-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--primary);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.method-badge {
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Result Summary */
+.summary-container {
+  max-width: 1000px;
+  margin: 32px auto 24px;
+  padding: 0 20px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.summary-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.summary-query {
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.perf-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f8fafc;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.perf-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.perf-improvement {
+  font-weight: 700;
+}
+
+.perf-improvement.positive {
+  color: #16a34a;
+}
+
+.perf-improvement.negative {
+  color: #dc2626;
+}
+
+.perf-improvement.neutral {
+  color: #d97706;
+}
+
+.perf-bar-wrapper {
+  flex: 1;
+  min-width: 200px;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 50px;
+  overflow: hidden;
+  display: flex;
+}
+
+.perf-bar-before {
+  background: #fca5a5;
+  height: 100%;
+}
+
+.perf-bar-after {
+  background: #86efac;
+  height: 100%;
+}
+
+/* Results Grid */
+.results-grid {
+  max-width: 1000px;
+  margin: 0 auto 80px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 600px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.result-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.cat-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.cat-Bahari { background: #e0f2fe; color: #0369a1; }
+.cat-Budaya { background: #e0e7ff; color: #4338ca; }
+.cat-Cagar-Alam { background: #ccfbf1; color: #0f766e; }
+.cat-Taman-Hiburan { background: #fef3c7; color: #b45309; }
+.cat-Pusat-Perbelanjaan { background: #ffe4e6; color: #be123c; }
+.cat-Tempat-Ibadah { background: #f3e8ff; color: #7e22ce; }
+.cat-default { background: #f1f5f9; color: #475569; }
+
+.rank-badge {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #cbd5e1;
+}
+
+.dest-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.dest-city {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.dest-desc {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.desc-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.desc-toggle {
+  display: none;
+}
+
+.desc-toggle:checked + .desc-text {
+  -webkit-line-clamp: unset;
+}
+
+.toggle-label {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.toggle-label:hover {
+  text-decoration: underline;
+}
+
+.sim-container {
+  margin-top: auto;
+}
+
+.sim-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.sim-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.sim-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), #4ade80);
+  border-radius: 50px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 64px 20px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+/* Footer */
+.footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  z-index: 10;
+}
+
+/* Performance Page */
+.perf-header {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.perf-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.perf-header p {
+  color: var(--text-muted);
+}
+
+.btn-run {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--text);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-run:hover {
+  background: #000;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.stat-val {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.chart-container {
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+}
+
+.method-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.m-card {
+  background: white;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.m-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.m-title {
+  font-weight: 700;
+}
+
+.m-tag {
+  font-size: 0.75rem;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.m-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  min-height: 40px;
+}
+
+.m-metrics {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.spinner {
+  display: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+.loading .spinner {
+  display: block;
+}
+
+.loading .btn-text {
+  display: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
