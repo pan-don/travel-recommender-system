@@ -3,31 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelLens</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>TravelLens - Hasil Pencarian</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-5xl flex flex-col items-center">
-        <h1 class="text-4xl font-bold mb-6 text-center">Rekomendasi Kami</h1>
-        <!-- Memeriksa apakah ada hasil yang ditemukan -->
-        {% if results %}
-            <script>
-                const results = JSON.parse('{{ results | tojson | safe }}');
-                console.log('Debugging results:', results);
-            </script>
-            <div class="flex flex-row flex-wrap justify-center gap-6 w-full">
-            <!-- Melakukan iterasi pada setiap hasil yang ditemukan -->
-            {% for result in results %}
-                <div class="bg-gray-50 rounded-lg shadow-md p-4 flex flex-col items-center w-64">
-                    <img src="{{ result['Link_Image'] }}" alt="Image of {{ result['Place_Name'] }}" class="w-full h-40 object-cover rounded mb-4">
-                    <div class="text-lg font-semibold text-center mb-1">{{ result['Place_Name'] }}</div>
-                    <div class="text-gray-600 text-center">{{ result['City'] }}</div>
+<body>
+
+    <div class="nav-bar">
+        <div class="nav-left">
+            <a href="/" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                Pencarian Baru
+            </a>
+            <span class="brand">TravelLens</span>
+        </div>
+        <div class="method-badge">{{ query_info.method }}</div>
+    </div>
+
+    <div class="summary-container">
+        <div class="summary-card">
+            <h2 class="summary-title">Ringkasan Pencarian</h2>
+            <div class="summary-query">"{{ query_info.query_text }}"</div>
+
+            <div class="perf-row">
+                <div class="perf-text">
+                    Sebelum Optimasi: <span style="font-weight: 700">{{ before_time_ms }} ms</span>
+                    &nbsp;&rarr;&nbsp;
+                    Sesudah Optimasi: <span style="font-weight: 700">{{ after_time_ms }} ms</span>
                 </div>
-            {% endfor %}
+
+                <div class="perf-bar-wrapper">
+                    <div class="perf-bar-before" style="width: {% if before_time_ms > 0 %}{{ (before_time_ms / (before_time_ms + after_time_ms)) * 100 }}%{% else %}0%{% endif %}"></div>
+                    <div class="perf-bar-after" style="width: {% if after_time_ms > 0 %}{{ (after_time_ms / (before_time_ms + after_time_ms)) * 100 }}%{% else %}0%{% endif %}"></div>
+                </div>
+
+                <div class="perf-improvement {% if improvement_pct > 0 %}positive{% elif improvement_pct < 0 %}negative{% else %}neutral{% endif %}">
+                    {% if improvement_pct > 0 %}&darr; {{ improvement_pct }}% lebih cepat
+                    {% elif improvement_pct < 0 %}&uarr; {{ improvement_pct | abs }}% lebih lambat
+                    {% else %}0% (Tidak ada perubahan){% endif %}
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="results-grid">
+        {% if results %}
+            {% for dest in results %}
+            <div class="result-card">
+                <div class="card-header">
+                    {% set cat_class = "cat-" ~ dest.category | replace(" ", "-") %}
+                    <span class="cat-badge {{ cat_class }}">{{ dest.category }}</span>
+                    <span class="rank-badge">#{{ loop.index }}</span>
+                </div>
+
+                <h3 class="dest-name">{{ dest.name }}</h3>
+                <div class="dest-city">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    {{ dest.city }}
+                </div>
+
+                <div class="dest-desc">
+                    <input type="checkbox" id="desc-toggle-{{ loop.index }}" class="desc-toggle">
+                    <div class="desc-text">{{ dest.description }}</div>
+                    <label for="desc-toggle-{{ loop.index }}" class="toggle-label">Lihat Selengkapnya</label>
+                </div>
+
+                <div class="sim-container">
+                    <div class="sim-label">
+                        <span>Skor Kesamaan</span>
+                        <span>{{ "%.1f"|format(dest.score * 100) }}%</span>
+                    </div>
+                    <div class="sim-bar-bg">
+                        <div class="sim-bar-fill" style="width: {{ dest.score * 100 }}%"></div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         {% else %}
-            <p class="text-center text-gray-500">Maaf Kami tidak bisa menemukan tempat yang Anda maksud.</p>
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 16px; opacity: 0.5;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <p>Tidak ada destinasi ditemukan. Coba ubah kata kunci Anda.</p>
+            </div>
         {% endif %}
     </div>
+
+    <div class="footer-bar">
+        Menampilkan {{ query_info.total_found }} hasil &middot; Diproses dalam {{ after_time_ms }} ms &middot; Model: MiniLM-L12-v2
+    </div>
+
 </body>
 </html>
